@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server" : "nodemon server.js"
+    "server": "nodemon server.js",
+    "deploy": "node deploy.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "cloudinary": "^2.3.1",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
+    "ecommerce_project": "file:",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
     "js": "^0.1.0",

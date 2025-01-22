@@ -12,13 +12,6 @@ const dotenv = require("dotenv").config();
 //define express as a function
 
 const app = express()
-// import server configuration
-
-const server_config = require("./configs/server.config")
-
-// import the db configuration
-
-const db_config = require("./configs/db.config")
 
 // import user model
 const user_model = require("./models/user.model")
@@ -41,18 +34,8 @@ app.use(morgan("dev"))
  * if not already present
  */
 
-// connection with mongodb
-mongoose.connect(db_config.DB_URL)
 
-const db = mongoose.connection
 
-db.on("error", ()=>{
-    console.log("Error while connecting with the MongoDB")
-})
-db.once("open", ()=>{
-    console.log("connected with MongoDB")
-    init()
-})
 // define funtion
 async function init(){
     // write code for getting user
@@ -100,15 +83,19 @@ require("./routes/brand.routes")(app)
 require("./routes/coupon.routes")(app)
 
 
+//Connect to mongoDb
 
-
-
+mongoose.connect(process.env.DB_URL).then(() => {
+    console.log("Connected to MongoDB")
+}).catch((err) => {
+    console.log("Error while connecting to MongoDB", err)
+})
 
 
 /**
  * Start the server
 */
 
-app.listen(server_config.PORT, () => {
-    console.log("Server Started at Port num", server_config.PORT)
+app.listen(process.env.PORT, () => {
+    console.log("Server Started at Port num", process.env.PORT);
 })
